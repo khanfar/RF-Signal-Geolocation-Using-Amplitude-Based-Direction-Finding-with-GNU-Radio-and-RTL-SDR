@@ -471,7 +471,92 @@ matplotlib: For polar plots.
 
 folium: For map visualization.
 
+-----------------------------------------------------
+
+Step-by-Step Block Connections
+
+1. RTL-SDR Source Blocks
+
+Add four RTL-SDR Source blocks to the canvas.
+
+Configure each block as follows:
+Sample Rate : Set to 2e6 (2 MHz) or lower if needed.
+Center Frequency : Set to the frequency of interest (e.g., 433e6 for the ISM band).
+Gain : Start with 30 dB and adjust based on your setup.
+Device Index : Assign unique indices (0, 1, 2, 3) to differentiate the RTL-SDRs.
+
+3. Complex to Mag^2 Blocks
+4. 
+Add a Complex to Mag^2 block after each RTL-SDR Source.
+This block converts IQ samples into amplitude squared (proportional to power).
+Connect the output of each RTL-SDR Source to its corresponding Complex to Mag^2 block .
+
+6. Moving Average Blocks
+Add a Moving Average block after each Complex to Mag^2 block .
+This block smooths the amplitude data to reduce noise.
+Set the Length parameter to a reasonable value (e.g., 1000 samples).
+Connect the output of each Complex to Mag^2 block to its corresponding Moving Average block .
+
+8. Stream to Vector Block
+   
+Add a Stream to Vector block to combine the amplitude data from all four channels.
+Set the Vector Length parameter to 4 (one value for each channel).
+Connect the outputs of all four Moving Average blocks to the inputs of the Stream to Vector block .
+
+10. File Sink or Message Debug
+    
+Add a File Sink block or Message Debug block to save or display the processed data.
+File Sink : Save the data to a file (e.g., .dat or .csv) for further analysis in Python.
+Set the File Path to a location on your system.
+Message Debug : Print the data to the terminal for debugging.
+Connect the output of the Stream to Vector block to the input of the File Sink or Message Debug block .
+
+12. Optional: QT GUI Time Sink
+    
+If you want to visualize the amplitude in real-time, add a QT GUI Time Sink block .
+Connect the output of each Moving Average block to a separate input of the QT GUI Time Sink block .
+Set the number of inputs to 4 (one for each channel).
 
 
+
+Explanation of Each Block
+RTL-SDR Source :
+Captures raw IQ samples from the RTL-SDR dongle.
+Acts as the input source for the flowgraph.
+
+Complex to Mag^2 :
+Converts complex IQ samples into amplitude squared (power).
+Simplifies the signal for amplitude-based analysis.
+
+Moving Average :
+Smooths the amplitude data to reduce noise.
+Improves the accuracy of amplitude measurements.
+
+Stream to Vector :
+Combines the amplitude data from all four channels into a single vector.
+Allows you to process all channels together.
+
+File Sink / Message Debug :
+Saves the processed data to a file or prints it to the terminal.
+Provides output for further analysis in Python.
+
+QT GUI Time Sink (Optional) :
+Visualizes the amplitude over time in real-time.
+Helps debug and verify the system.
+
+
+Inspect Output :
+
+Check the output file or terminal for amplitude data.
+Use the QT GUI Time Sink to visualize the amplitude in real-time.
+
+Next Steps
+Once the flowgraph is working:
+
+Export the amplitude data to Python for further analysis.
+
+Implement amplitude-based direction finding algorithms to estimate DOA.
+
+Generate polar plots and map visualizations to locate the RF emitter.
 
 
