@@ -609,3 +609,11 @@ Easy to build or purchase.
 Example Use Case : If you're working with 433 MHz signals, a Yagi antenna tuned to this frequency would be ideal.
 
 
+ Additional Considerations
+ 
+Antenna Gain : Higher gain antennas provide better sensitivity but have narrower beamwidths.
+
+Polarization : Match the polarization of the antenna to the signal source (e.g., vertical for most terrestrial signals).
+
+Calibration : Calibrate the antennas to ensure consistent performance across all channels.
+
