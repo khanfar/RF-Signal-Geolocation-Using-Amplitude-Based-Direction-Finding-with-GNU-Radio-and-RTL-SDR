@@ -559,4 +559,53 @@ Implement amplitude-based direction finding algorithms to estimate DOA.
 
 Generate polar plots and map visualizations to locate the RF emitter.
 
+----------------------------------------
+
+Recommended Antennas for my Project
+For amplitude-based direction finding, Yagi-Uda antennas are the most practical choice due to their high gain and narrow beamwidth. Here’s how you can set them up:
+
+Setup for Two Arrays
+
+Array 1 :
+
+Use two Yagi antennas mounted back-to-back or side-by-side.
+
+Arrange them to cover different azimuth angles (e.g., 0° and 90°).
+
+Array 2 :
+
+Repeat the setup at a second location, spaced apart from Array 1.
+
+Ensure both arrays are synchronized and calibrated.
+
+Frequency-Specific Recommendations
+
+433 MHz (ISM Band) : Use a Yagi antenna tuned to 433 MHz.
+
+2.4 GHz (Wi-Fi) : Use a patch antenna or a small Yagi for 2.4 GHz.
+
+900 MHz (Cellular/GSM) : Use a Yagi or log-periodic antenna.
+
+Yagi-Uda Antenna
+
+Description : A highly directional antenna with multiple elements (reflector, driven element, and directors).
+
+Frequency Range : Typically used for HF, VHF, and UHF bands (e.g., 144 MHz, 433 MHz, 900 MHz).
+
+Applications :
+
+Amateur radio.
+
+ISM band (e.g., 433 MHz for IoT devices).
+
+Direction finding and geolocation.
+
+Advantages :
+
+High gain and narrow beamwidth.
+
+Easy to build or purchase.
+
+Example Use Case : If you're working with 433 MHz signals, a Yagi antenna tuned to this frequency would be ideal.
+
 
