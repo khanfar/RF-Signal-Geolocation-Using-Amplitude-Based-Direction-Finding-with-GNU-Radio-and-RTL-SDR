@@ -202,84 +202,161 @@ Prepare presentation and documentation.
 The goal is to determine the location of an RF emitter by:
 
 Using two or more directional antenna arrays to calculate the direction of arrival (DOA) of the RF signal.
+
 Visualizing the amplitude response at different bearings using polar plots.
+
 Intersecting the calculated LOBs on a map to pinpoint the emitter's location.
+
 2. Required Components
 Hardware:
 RTL-SDR Dongles : Four RTL-SDR receivers are needed to capture the RF signals.
+
 Directional Antennas : Use directional antennas (e.g., Yagi antennas) for each RTL-SDR to provide spatial selectivity.
+
 Antenna Mounting Setup : Arrange the antennas in two arrays (e.g., one array for azimuth and another for elevation or two separate locations).
+
 GPS Module : Optional, for synchronizing time and location data between the arrays.
+
 Software:
 GNU Radio : For signal processing and visualization.
+
 Python/PyQt/Plotly : For creating polar plots and maps.
+
 Mapping Tools : Libraries like folium or matplotlib for displaying geolocation results on a map.
-3. Steps to Implement
+
+4. Steps to Implement
+5. 
 Step 1: Signal Capture with RTL-SDR
+
 Connect each RTL-SDR to a directional antenna.
+
 Configure the RTL-SDRs to capture signals at the same frequency and bandwidth.
+
 Use GNU Radio to synchronize the sampling and ensure all receivers are tuned to the same RF signal.
 Step 2: Amplitude-Based Direction Finding
+
 Measure the received signal strength (RSS) at each antenna.
+
 Compare the amplitude differences between the antennas in each array to estimate the DOA.
+
 Use algorithms like:
+
 Beamforming : Combine signals from multiple antennas to enhance the signal in a specific direction.
+
 Phase Comparison : If phase information is available, use it to refine the DOA estimation.
+
 Step 3: Polar Plot Visualization
+
 Create a polar plot to display the amplitude response as a function of bearing.
+
 Each peak in the polar plot corresponds to a potential line of bearing (LOB).
+
 Step 4: Calculate Lines of Bearing
+
 For each array, calculate the LOB based on the DOA.
+
 Use trigonometry to convert the DOA into geographic coordinates (latitude and longitude).
+
 Step 5: Geolocation on a Map
+
 Plot the LOBs from both arrays on a map.
+
 The intersection of the LOBs provides the estimated location of the RF emitter.
-4. Implementation in GNU Radio
+
+7. Implementation in GNU Radio
+
 Signal Processing Flowgraph:
+
 Signal Source :
+
 Use four RTL-SDR blocks to capture the RF signals.
+
 Amplitude Measurement :
+
 Compute the RSS for each channel using magnitude or power calculations.
+
 Direction Finding :
+
 Use custom blocks or Python scripts to analyze the amplitude differences and estimate DOA.
+
 Polar Plot :
+
 Export the amplitude data to a Python script for visualization using libraries like matplotlib.
+
 Example Blocks in GNU Radio:
+
 RTL-SDR Source : Capture raw IQ samples from each SDR.
+
 FFT Block : Perform spectral analysis to identify the signal of interest.
+
 Complex to Mag^2 : Convert IQ samples to amplitude/power values.
+
 Custom Python Block : Process amplitude data to calculate DOA and generate polar plots.
-5. Visualization
+
+9. Visualization
+    
 Polar Plot:
+
 Use matplotlib to create a polar plot showing amplitude vs. bearing.
+
 Highlight the peaks corresponding to the LOBs.
+
 Map Visualization:
+
 Use folium or plotly to plot the LOBs on a map.
+
 Mark the intersection point as the estimated location of the RF emitter.
-6. Challenges and Considerations
+
+11. Challenges and Considerations
+
 Synchronization :
+
 Ensure that all RTL-SDRs are synchronized in time and frequency. This can be challenging without external hardware.
+
 Antenna Calibration :
+
 Calibrate the antennas to account for differences in gain and directivity.
+
 Multipath Effects :
+
 Multipath propagation can distort the amplitude measurements, leading to inaccurate DOA estimates.
+
 Signal-to-Noise Ratio (SNR) :
+
 Ensure sufficient SNR to reliably detect the RF signal.
-7. Example Workflow
+
+13. Example Workflow
+14. 
 Set up two arrays of directional antennas at known locations.
+
 Capture RF signals using GNU Radio and RTL-SDR.
+
 Analyze amplitude differences to estimate DOA for each array.
+
 Generate polar plots to visualize the LOBs.
+
 Plot the LOBs on a map and calculate their intersection.
+
 Refine the location estimate using additional data (e.g., GPS coordinates of the arrays).
-8. Tools and Libraries
+
+16. Tools and Libraries
+
 GNU Radio : Core framework for signal processing.
+
 Python Libraries :
+
 numpy: For numerical computations.
+
 matplotlib: For polar plots.
+
 folium or plotly: For map visualization.
+
 RTL-SDR Tools : rtl_sdr, gr-osmosdr for interfacing with RTL-SDR.
-9. Conclusion
+
+18. Conclusion
+    
 By combining GNU Radio, RTL-SDR, and directional antennas, you can build a system for geolocating RF signals using amplitude-based direction finding. 
+
 The key steps involve signal capture, amplitude analysis, DOA estimation, and visualization. While the setup has some challenges (e.g., synchronization and calibration), 
+
 it is a feasible project with careful planning and implementation.
